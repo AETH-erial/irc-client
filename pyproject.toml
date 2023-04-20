@@ -1,0 +1,85 @@
+[build-system]
+requires = [
+    "setuptools>=67.6.0",
+    "wheel>=0.40.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "irc-client"
+dynamic = ["version", "readme", "dependencies"]
+requires-python = ">=3.8"
+description = "irc client for python"
+keywords = [
+]
+authors = [
+  { name="aeth", email="aetheriak@proton.me" },
+]
+maintainers = [
+  {name = "aeth", email = "aetheriak@proton.me"},
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Operating System :: POSIX :: BSD",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+[project.urls]
+Documentation = "https://irc-client.readthedocs.io/en/latest/"
+Source = "git@github.com:AETH-erial/irc-client.git"
+Tracker = "git@github.com:AETH-erial/irc-client.git/issues"
+
+[tool.setuptools.packages.find]
+include = [
+    "irc_client*",
+]
+
+# Add or remove file extensions to include the data
+[tool.setuptools.package-data]
+"*" = ["*.txt", "*.rst"]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "irc_client.version.__version__"}
+readme = {file = "README.md", content-type = "text/markdown"}
+dependencies = {file = "requirements.txt"}
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+markers = [
+    "place_holder: marks tests as place_holder (deselect with -m 'not place_holder')",
+]
+
+[tool.coverage.run]
+command_line= "-m pytest -vvv"
+
+[tool.coverage.report]
+include = [
+    "irc_client/*"
+]
+
+[tool.pylint]
+max-line-length = 120
+# This allows pylint to complain on FIXME and XXX notes
+notes = [
+    "FIXME",
+    "XXX",
+]
