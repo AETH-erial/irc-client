@@ -1,9 +1,9 @@
 """ Simplified client for an IRC chat """
-from irc_client.configuration.client_configuration import ClientConfiguration
 from irc.client import ServerConnection
+from irc_client.configuration.client_configuration import ClientConfiguration
 
 
-class IrcFunction:
+class IrcFunction: # pylint: disable=too-few-public-methods
     """ IRC chat client functionality """
     def __init__(self, connection: ServerConnection):
         if not isinstance(connection, ServerConnection):
@@ -12,8 +12,7 @@ class IrcFunction:
 
 
 class IrcClient(IrcFunction, ClientConfiguration):
+    """ IRC client class with inherited attributes from config and IrcFunction """
     def __init__(self, conf_loc: str, connection: ServerConnection):
-        super().__init__(conf_loc=conf_loc)
-        super().__init__(connection=connection)
-
-
+        super().__init__(conf_loc)
+        super().__init__(connection)

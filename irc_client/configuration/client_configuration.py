@@ -5,7 +5,7 @@ from irc_client.exceptions.exceptions import ConfigNotFound, InvalidConfigError
 from irc_client.configuration.const import ValidConfFields
 
 
-class ClientConfiguration:
+class ClientConfiguration: # pylint: disable=too-few-public-methods
     """ class to house client configuration settings """
 
     def __init__(self, conf_loc: str):
@@ -52,15 +52,15 @@ class ClientConfiguration:
         """
         if not isinstance(conf, dict):
             raise TypeError(f'conf should have been a dict but got a: {type(conf)}')
-        for field, value in conf.items():
+        for field in conf.keys():
             try:
                 ValidConfFields(field)
-            except ValueError as e:
-                raise InvalidConfigError(f"field: {field} not in {ValidConfFields}") from e
+            except ValueError as err:
+                raise InvalidConfigError(f"field: {field} not in {ValidConfFields}") from err
         return True
 
-    @staticmethod
-    def __load_config(self, conf: dict) -> None:
+    @classmethod
+    def __load_config(cls, conf: dict) -> None:
         """
         Load the config into the classes attributes
 
@@ -70,4 +70,4 @@ class ClientConfiguration:
 
         """
         for field, value in conf.items():
-            setattr(self, ValidConfFields(field).name, value)
+            setattr(cls, ValidConfFields(field).name, value)
